@@ -1,19 +1,22 @@
 *{
-    font-family: Calibri;
-  }
-  
-  span {
-    font-size: 1.2em;
-    font-weight: bolder;
-  }
-  
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-  }
-  
-  .grid-container > div{
-    border: 1px black solid;
-    padding : 20px;
-  }
+  font-family: Poppins;
+}
+
+body{
+  display: block;
+}
+
+body h1{
+  text-align: center;
+}
+
+.excitement {
+  color: red;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.pokemon-list{
+  margin: 1rem;
+  padding: 0.4rem;
+}
