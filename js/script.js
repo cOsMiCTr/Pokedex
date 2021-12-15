@@ -3,6 +3,14 @@
 
 let pokemonRepository = (function () {
 
+  // Variables
+
+  const heightHuge = "Wow, that\’s big! ";
+  const divPokemonList = "<div class=\"pokemon-list\">";
+  const divClose = "</div>";
+  const spanExcitement = "<span class=\"excitement\">";
+  const spanClose = "</span>";
+
   // Pokemon names
 
   let pokemonList = [
@@ -14,21 +22,59 @@ let pokemonRepository = (function () {
     {name: 'Snorlax', height:2.1, types:['Normal']}
   ];
 
-  // Variables
+  // Add Pokemon Function
 
-  const heightHuge = "Wow, that\’s big! ";
-  const divPokemonList = "<div class=\"pokemon-list\">";
-  const divClose = "</div>";
-  const spanExcitement = "<span class=\"excitement\">";
-  const spanClose = "</span>";
+  function add(pokemon) {
+    if (typeof pokemon  == 'object') {
+    pokemonList.push(pokemon);
+    } else {
+      alert('Wrong type of data has been chosen! Please try again...');
+    }
+  }
 
-  // Print on screen
+  // Print all Pokemon
 
+  function getAll() {
+    pokemonList.forEach(function(pokemon) {
+      if(pokemon.height >= 2.0) {
+        return document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " ) - " + spanExcitement + heightHuge + spanClose + divClose);
+      } else {
+        return document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " )" + divClose);
+      }
+    });
+  }
 
-  pokemonList.forEach(function(pokemon) {
-    pokemon.height >= 2.0 ?
-    document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " ) - " + spanExcitement + heightHuge + spanClose + divClose):
-    document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " )" + divClose);
-  });
+  function getKeys(pokemon) {
+    Object.keys(pokemon).forEach(function(property) {
+      document.write(pokemon[property]);
+    });
+  }
 
+  function getInfo(pokemon) {
+    let xx = pokemonList.filter(function(pokemonName) {
+      return document.write(pokemonName.name); 
+      
+    });
+  }
+
+  return {
+    add: add,
+    getAll: getAll,
+    getKeys: getKeys,
+    getInfo: getInfo
+  };
 })();
+
+// Add a Pokemon
+
+pokemonRepository.add({ name:'Pikachu', height:1.04, types:'Electric' });
+
+// Print everything inside the array
+
+pokemonRepository.getAll();
+
+pokemonRepository.getKeys({ name: 'Pikachu', height:1.04 });
+
+// I AM HAVING PROBLEM WITH THE FILTER!!!!!
+
+pokemonRepository.getInfo('Onix');
