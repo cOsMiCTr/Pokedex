@@ -1,15 +1,10 @@
 
+
 // IIFE
 
 const pokemonRepository = (function () {
 
-  // Variables
 
-  const heightHuge = "Wow, that\’s big! ";
-  const divPokemonList = "<div class=\"pokemon-names\">";
-  const divClose = "</div>";
-  const spanExcitement = "<span class=\"excitement\">";
-  const spanClose = "</span>";
 
     // Pokemon names
 
@@ -21,14 +16,6 @@ const pokemonRepository = (function () {
     {name: 'Mr. Mime', height:1.3, types:['Psychic','Fairy']},
     {name: 'Snorlax', height:2.1, types:['Normal']}
   ];
-
-
-  // div and class creation
-
-  let createClassPokemonNames = document.querySelector('main');
-  let divClassForPokemonNames = document.createElement('div');
-  createClassPokemonNames.appendChild(divClassForPokemonNames);
-  divClassForPokemonNames.classList = "pokemon-names";
 
 
   // Add Pokemon Function manually
@@ -44,28 +31,34 @@ const pokemonRepository = (function () {
   // Print all Pokemon
 
   function getAll() {
-    pokemonList.forEach(function(pokemon) {
-      pokemon.height >= 2.0 ?
-      divPokemonList + pokemon.name + " ( height : " + pokemon.height + " ) - " + spanExcitement + heightHuge + spanClose + divClose:
-      divPokemonList + pokemon.name + " ( height : " + pokemon.height + " )" + divClose;
+    return pokemonList;
+  }
+
+  function addListItem(pokemon) {
+    // Adding pokemons
+    let pokemonList = document.querySelector(".pokemon-list");
+    let listpokemon = document.createElement("li");
+    let container = document.createElement('div');
+    let button = document.createElement("button");
+    button.innerText = pokemon.name;
+    
+    //adds](//adds) class button for css styling
+    container.classList.add("pokemon-button");
+    button.classList.add("pokemonName-button");
+    
+    // Append all the items
+    container.appendChild(button);
+    listpokemon.appendChild(container);
+    pokemonList.appendChild(listpokemon);
+
+
+    button.addEventListener('click', function (pokemon){
+      return showDetails(button.innerText);
     });
   }
 
-
-
-  function addListItem() {
-    let elements = document.querySelector('.pokemon-names');
-    let pokemonNames = elements.querySelectorAll('div');
-    let newButton = document.createElement('button');
-
-
-    pokemonNames.forEach(function(elements){
-      newButton.innerText = "I am not a button!";  
-      element.innerText = pokemon.name;
-      elements.innerHTML = "<h2>" + pokemon.name + "</h2>";
-      elements.appendChild(newButton);
-
-    })
+  function showDetails(pokemon){
+    console.log(pokemon);
   }
 
   function getKeys(pokemon) {
@@ -85,96 +78,12 @@ const pokemonRepository = (function () {
     getAll,
     getKeys,
     addListItem,
-    getInfo
+    getInfo,
+    showDetails
   };
 })();
 
-
-pokemonRepository.addListItem();
-
-
-/*
-
-
-pokemonList.forEach(function(pokemon) {
-  pokemon.height >= 2.0 ?
-  divPokemonList + pokemon.name + " ( height : " + pokemon.height + " ) - " + spanExcitement + heightHuge + spanClose + divClose:
-  divPokemonList + pokemon.name + " ( height : " + pokemon.height + " )" + divClose;
-});*/
-
-/*
-  // BOB Try-outs
-  function getNodes(x) {
-    let elements = document.querySelector('.pokemon-list')
-    let bobsName = elements.querySelectorAll('div');
-    let newButton = document.createElement('button');
-    let elementToRemove = document.querySelector('div');
-
-
-
-    bobsName.forEach(function(element){
-      newButton.innerText = "I am not a button!";  
-      element.innerText = x;
-      elements.innerHTML = "<h2>" + x + "</h2>";
-      elements.appendChild(newButton);
-      //elementToRemove.parentElement.removeChild(elementToRemove);
-
-
-    })
-  }*/
-
-
-
-
-// Add a Pokemon
-/*
-pokemonRepository.add({ name:'Pikachu', height:1.04, types:'Electric' });
-
-// Print everything inside the array
-pokemonRepository.getNodes('test');
-
-pokemonRepository.getInfo('Pikachu');*/
-
-/*
-// WHY IS THIS NOT TURNING TO RED????
-let button = document.querySelector('button');
-
-button.addEventListener('click', function (event) {
-  let target = event.target;
-  target.classList.toggle('button--red');
-  target.classList.toggle('button--green');
-
-
-});*/
-
-/*
-
-// Remove submit to server
-let form = document.querySelector('form');
-let input = document.querySelector('input');
-form.addEventListener('submit', function (event) {
-
-  // submit only if there is text in the input
-  !input.value ?
-  event.preventDefault():
-  form.submit();
-});
-
-*/
-
-
-// hide the form whenever it is pressed to key "enter"
-/*
-function hideSurveyForm(event) {
-  let survey_form = document.querySelector('#survey_form');
-  let isFormHidden = survey_form.classList.contains('hidden');
-  if( !isFormHidden && event.key === 'Enter'){
-    survey_form.classList.add('hidden');
-  } else { 
-    survey_form.classList.remove('hidden');
-  }
-}
-
-window.addEventListener('keydown', hideSurveyForm);
-
-*/
+pokemonRepository.getAll().forEach(function (pokemon) {
+  pokemonRepository.addListItem(pokemon)
+  });
+  

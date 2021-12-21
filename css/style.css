@@ -4,27 +4,42 @@
 
 body{
   display: block;
-}
-
-body h1{
   text-align: center;
 }
 
-.excitement {
-  color: red;
-  font-size: 1.2em;
-  font-weight: bold;
+ul {
+  list-style-type: none;
 }
 
-.pokemon-names{
-  margin: 1rem;
-  padding: 0.4rem;
+button{
+  margin: 1rem auto;
+  width: 200px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #333;
+  border: 2px solid #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all .35s;
 }
 
-.hidden {
-  display: none;
+button span{
+  position: relative;
+  z-index: 2;
 }
 
+button:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ff003b;
+  transition: all .50s;
+}
 
-.button--red { background-color: tomato; }
-.button--green { background-color: lightgreen; }
+button:hover:after{
+  width: 100%;
+}
