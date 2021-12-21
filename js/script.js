@@ -1,13 +1,9 @@
 
-
 // IIFE
 
 const pokemonRepository = (function () {
 
-
-
     // Pokemon names
-
   let pokemonList = [
     {name: 'Charmander', height:0.6, types:['Fire']},
     {name: 'Charmeleon', height:1.1, types:['Fire']},
@@ -17,9 +13,7 @@ const pokemonRepository = (function () {
     {name: 'Snorlax', height:2.1, types:['Normal']}
   ];
 
-
   // Add Pokemon Function manually
-
   function add(pokemon) {
     if (typeof pokemon  == 'object') {
       pokemonList.push(pokemon);
@@ -29,7 +23,6 @@ const pokemonRepository = (function () {
   }
 
   // Print all Pokemon
-
   function getAll() {
     return pokemonList;
   }
@@ -51,8 +44,8 @@ const pokemonRepository = (function () {
     listpokemon.appendChild(container);
     pokemonList.appendChild(listpokemon);
 
-
-    button.addEventListener('click', function (pokemon){
+    // Return button test when clicked
+    button.addEventListener('click', function (event){
       return showDetails(button.innerText);
     });
   }
@@ -71,7 +64,6 @@ const pokemonRepository = (function () {
     let objectPokemonResult = pokemonList.find(element => element.name === pokemon);
     return document.write(objectPokemonResult.height); 
   }
-
 
   return {
     add,
