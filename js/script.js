@@ -6,12 +6,12 @@ const pokemonRepository = (function () {
   // Variables
 
   const heightHuge = "Wow, that\’s big! ";
-  const divPokemonList = "<div class=\"pokemon-list\">";
+  const divPokemonList = "<div class=\"pokemon-names\">";
   const divClose = "</div>";
   const spanExcitement = "<span class=\"excitement\">";
   const spanClose = "</span>";
 
-  // Pokemon names
+    // Pokemon names
 
   let pokemonList = [
     {name: 'Charmander', height:0.6, types:['Fire']},
@@ -22,11 +22,20 @@ const pokemonRepository = (function () {
     {name: 'Snorlax', height:2.1, types:['Normal']}
   ];
 
-  // Add Pokemon Function
+
+  // div and class creation
+
+  let createClassPokemonNames = document.querySelector('main');
+  let divClassForPokemonNames = document.createElement('div');
+  createClassPokemonNames.appendChild(divClassForPokemonNames);
+  divClassForPokemonNames.classList = "pokemon-names";
+
+
+  // Add Pokemon Function manually
 
   function add(pokemon) {
     if (typeof pokemon  == 'object') {
-    pokemonList.push(pokemon);
+      pokemonList.push(pokemon);
     } else {
       alert('Wrong type of data has been chosen! Please try again...');
     }
@@ -36,10 +45,27 @@ const pokemonRepository = (function () {
 
   function getAll() {
     pokemonList.forEach(function(pokemon) {
-        pokemon.height >= 2.0 ?
-        document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " ) - " + spanExcitement + heightHuge + spanClose + divClose):
-        document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " )" + divClose);
+      pokemon.height >= 2.0 ?
+      divPokemonList + pokemon.name + " ( height : " + pokemon.height + " ) - " + spanExcitement + heightHuge + spanClose + divClose:
+      divPokemonList + pokemon.name + " ( height : " + pokemon.height + " )" + divClose;
     });
+  }
+
+
+
+  function addListItem() {
+    let elements = document.querySelector('.pokemon-names');
+    let pokemonNames = elements.querySelectorAll('div');
+    let newButton = document.createElement('button');
+
+
+    pokemonNames.forEach(function(elements){
+      newButton.innerText = "I am not a button!";  
+      element.innerText = pokemon.name;
+      elements.innerHTML = "<h2>" + pokemon.name + "</h2>";
+      elements.appendChild(newButton);
+
+    })
   }
 
   function getKeys(pokemon) {
@@ -54,12 +80,35 @@ const pokemonRepository = (function () {
   }
 
 
+  return {
+    add,
+    getAll,
+    getKeys,
+    addListItem,
+    getInfo
+  };
+})();
+
+
+pokemonRepository.addListItem();
+
+
+/*
+
+
+pokemonList.forEach(function(pokemon) {
+  pokemon.height >= 2.0 ?
+  divPokemonList + pokemon.name + " ( height : " + pokemon.height + " ) - " + spanExcitement + heightHuge + spanClose + divClose:
+  divPokemonList + pokemon.name + " ( height : " + pokemon.height + " )" + divClose;
+});*/
+
+/*
   // BOB Try-outs
   function getNodes(x) {
-    let elements = document.querySelector('.bob')
-    let bobsName = elements.querySelectorAll('h1');
+    let elements = document.querySelector('.pokemon-list')
+    let bobsName = elements.querySelectorAll('div');
     let newButton = document.createElement('button');
-    let elementToRemove = document.querySelector('h1');
+    let elementToRemove = document.querySelector('div');
 
 
 
@@ -72,32 +121,19 @@ const pokemonRepository = (function () {
 
 
     })
+  }*/
 
 
-  }
 
-  return {
-    add,
-    getAll,
-    getKeys,
-    getInfo,
-    getNodes
-  };
-})();
 
 // Add a Pokemon
-
+/*
 pokemonRepository.add({ name:'Pikachu', height:1.04, types:'Electric' });
 
 // Print everything inside the array
+pokemonRepository.getNodes('test');
 
-pokemonRepository.getAll();
-
-pokemonRepository.getNodes('I am BOB!!!');
-
-pokemonRepository.getInfo('Pikachu');
-
-
+pokemonRepository.getInfo('Pikachu');*/
 
 /*
 // WHY IS THIS NOT TURNING TO RED????
@@ -111,6 +147,7 @@ button.addEventListener('click', function (event) {
 
 });*/
 
+/*
 
 // Remove submit to server
 let form = document.querySelector('form');
@@ -123,11 +160,11 @@ form.addEventListener('submit', function (event) {
   form.submit();
 });
 
-
+*/
 
 
 // hide the form whenever it is pressed to key "enter"
-
+/*
 function hideSurveyForm(event) {
   let survey_form = document.querySelector('#survey_form');
   let isFormHidden = survey_form.classList.contains('hidden');
@@ -139,3 +176,5 @@ function hideSurveyForm(event) {
 }
 
 window.addEventListener('keydown', hideSurveyForm);
+
+*/
