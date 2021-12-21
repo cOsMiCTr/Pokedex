@@ -20,3 +20,11 @@ body h1{
   margin: 1rem;
   padding: 0.4rem;
 }
+
+.hidden {
+  display: none;
+}
+
+
+.button--red { background-color: tomato; }
+.button--green { background-color: lightgreen; }

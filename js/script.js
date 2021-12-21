@@ -1,7 +1,7 @@
 
 // IIFE
 
-let pokemonRepository = (function () {
+const pokemonRepository = (function () {
 
   // Variables
 
@@ -36,11 +36,9 @@ let pokemonRepository = (function () {
 
   function getAll() {
     pokemonList.forEach(function(pokemon) {
-      if(pokemon.height >= 2.0) {
-        return document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " ) - " + spanExcitement + heightHuge + spanClose + divClose);
-      } else {
-        return document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " )" + divClose);
-      }
+        pokemon.height >= 2.0 ?
+        document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " ) - " + spanExcitement + heightHuge + spanClose + divClose):
+        document.write(divPokemonList + pokemon.name + " ( height : " + pokemon.height + " )" + divClose);
     });
   }
 
@@ -51,17 +49,39 @@ let pokemonRepository = (function () {
   }
 
   function getInfo(pokemon) {
-    let xx = pokemonList.filter(function(pokemonName) {
-      return document.write(pokemonName.name); 
-      
-    });
+    let objectPokemonResult = pokemonList.find(element => element.name === pokemon);
+    return document.write(objectPokemonResult.height); 
+  }
+
+
+  // BOB Try-outs
+  function getNodes(x) {
+    let elements = document.querySelector('.bob')
+    let bobsName = elements.querySelectorAll('h1');
+    let newButton = document.createElement('button');
+    let elementToRemove = document.querySelector('h1');
+
+
+
+    bobsName.forEach(function(element){
+      newButton.innerText = "I am not a button!";  
+      element.innerText = x;
+      elements.innerHTML = "<h2>" + x + "</h2>";
+      elements.appendChild(newButton);
+      //elementToRemove.parentElement.removeChild(elementToRemove);
+
+
+    })
+
+
   }
 
   return {
-    add: add,
-    getAll: getAll,
-    getKeys: getKeys,
-    getInfo: getInfo
+    add,
+    getAll,
+    getKeys,
+    getInfo,
+    getNodes
   };
 })();
 
@@ -73,8 +93,49 @@ pokemonRepository.add({ name:'Pikachu', height:1.04, types:'Electric' });
 
 pokemonRepository.getAll();
 
-pokemonRepository.getKeys({ name: 'Pikachu', height:1.04 });
+pokemonRepository.getNodes('I am BOB!!!');
 
-// I AM HAVING PROBLEM WITH THE FILTER!!!!!
+pokemonRepository.getInfo('Pikachu');
 
-pokemonRepository.getInfo('Onix');
+
+
+/*
+// WHY IS THIS NOT TURNING TO RED????
+let button = document.querySelector('button');
+
+button.addEventListener('click', function (event) {
+  let target = event.target;
+  target.classList.toggle('button--red');
+  target.classList.toggle('button--green');
+
+
+});*/
+
+
+// Remove submit to server
+let form = document.querySelector('form');
+let input = document.querySelector('input');
+form.addEventListener('submit', function (event) {
+
+  // submit only if there is text in the input
+  !input.value ?
+  event.preventDefault():
+  form.submit();
+});
+
+
+
+
+// hide the form whenever it is pressed to key "enter"
+
+function hideSurveyForm(event) {
+  let survey_form = document.querySelector('#survey_form');
+  let isFormHidden = survey_form.classList.contains('hidden');
+  if( !isFormHidden && event.key === 'Enter'){
+    survey_form.classList.add('hidden');
+  } else { 
+    survey_form.classList.remove('hidden');
+  }
+}
+
+window.addEventListener('keydown', hideSurveyForm);
