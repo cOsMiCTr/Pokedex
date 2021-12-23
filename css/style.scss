@@ -1,0 +1,43 @@
+*{
+  font-family: Poppins;
+}
+
+body{
+  display: block;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button{
+  margin: 1rem auto;
+  width: 200px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #333;
+  border: 2px solid #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all .35s;
+  span{
+    position: relative;
+    z-index: 2;
+  }
+  &::after{
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #ff003b;
+    transition: all .50s;
+  }
+  &:hover{
+    color: aliceblue;
+    background: red;
+  }
+}

@@ -1,7 +1,7 @@
 
 // IIFE
 
-const pokemonRepository = (function () {
+const pokemonRepository = ( () => {
 
     // Pokemon names
   let pokemonList = [
@@ -14,22 +14,18 @@ const pokemonRepository = (function () {
   ];
 
   // Add Pokemon Function manually
-  function add(pokemon) {
-    if (typeof pokemon  == 'object') {
-      pokemonList.push(pokemon);
-    } else {
+  let add = pokemon => {
+    typeof pokemon  == 'object' ?
+      pokemonList.push(pokemon):
       alert('Wrong type of data has been chosen! Please try again...');
-    }
   }
 
   // Print all Pokemon
-  function getAll() {
-    return pokemonList;
-  }
+  let getAll = () => pokemonList;
 
-  function addListItem(pokemon) {
+  let addListItem = pokemon => {
     // Adding pokemons
-    let pokemonList = document.querySelector(".pokemon-list");
+    const pokemonListContainer = document.querySelector(".pokemon-list");
     let listpokemon = document.createElement("li");
     let container = document.createElement('div');
     let button = document.createElement("button");
@@ -42,40 +38,24 @@ const pokemonRepository = (function () {
     // Append all the items
     container.appendChild(button);
     listpokemon.appendChild(container);
-    pokemonList.appendChild(listpokemon);
+    pokemonListContainer.appendChild(listpokemon);
 
     // Return button test when clicked
-    button.addEventListener('click', function (event){
-      return showDetails(button.innerText);
-    });
+    button.addEventListener('click', () => showDetails(button.innerText));
   }
 
-  function showDetails(pokemon){
-    console.log(pokemon);
-  }
+  let showDetails = pokemon => console.log(pokemon);
 
-  function getKeys(pokemon) {
-    Object.keys(pokemon).forEach(function(property) {
-      document.write(pokemon[property]);
-    });
-  }
-
-  function getInfo(pokemon) {
+  let getInfo = pokemon => {
     let objectPokemonResult = pokemonList.find(element => element.name === pokemon);
     return document.write(objectPokemonResult.height); 
   }
 
   return {
-    add,
     getAll,
-    getKeys,
-    addListItem,
-    getInfo,
-    showDetails
+    addListItem
   };
 })();
 
-pokemonRepository.getAll().forEach(function (pokemon) {
-  pokemonRepository.addListItem(pokemon)
-  });
+pokemonRepository.getAll().forEach( pokemon => pokemonRepository.addListItem(pokemon));
   
