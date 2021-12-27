@@ -1,3 +1,6 @@
+#Pokedex APP by cOsMiCTR
+
+
 
 Project description
 How to get the project running
