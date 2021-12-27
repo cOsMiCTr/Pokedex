@@ -1,4 +1,4 @@
-(https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png)
+
 
 
 # Pokedex APP by cOsMiCTR
@@ -30,4 +30,4 @@
 
 ## Used Resources:
 
-- 
+![PokeAPI](https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png)
