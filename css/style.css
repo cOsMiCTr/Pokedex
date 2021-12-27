@@ -46,4 +46,8 @@ button:hover {
   color: aliceblue;
   background: red;
 }
+
+.hidden {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */
