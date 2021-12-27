@@ -5,8 +5,8 @@ const pokemonRepository = ( () => {
 
     // Pokemon names
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=11';
-  let loadingMessage = "Loading... Please wait!";
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1118';
+  let waitingMessage = "Loading... Please wait!";
 
   // Add Pokemon Function manually
   let add = pokemon => {
@@ -18,13 +18,15 @@ const pokemonRepository = ( () => {
   // Print all Pokemon
   let getAll = () => pokemonList;
 
-  let showLoadingMessage = () => {
-    let messageContainer = document.querySelector(".waiting-message");
-    let waitingMessage = document.createElement('h3');
-    waitingMessage.innerText = loadingMessage;
-    messageContainer.appendChild(waitingMessage);
+  let loadingMessage = document.querySelector(".loading-message");
+
+  function showLoadingMessage() {
+    loadingMessage.classList.add('show');
   }
 
+  function hideLoadingMessage() {
+    loadingMessage.classList.remove('show');
+  }
 
   let addListItem = pokemon => {
     // Adding pokemons
@@ -50,40 +52,36 @@ const pokemonRepository = ( () => {
   let showDetails = item => pokemonRepository.loadDetails(item).then( ()  => console.log(item));
 
   function loadList() {
-    let loadEverything = new Promise(function (resolve, reject){
-
-      setTimeout(function(){
-        fetch(apiUrl).then(function (response) {
-          return response.json();
-        }).then(function (json) {
-          json.results.forEach(function (item) {
-            let pokemon = {
-              name: item.name,
-              detailsUrl: item.url
-            };
-            resolve(add(pokemon));
-          });
-        }).catch(function (e) {
-          reject(console.error(e));
-        })
-      
-      }, 3000);
-    });
     showLoadingMessage();
-    return loadEverything;
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (e) {
+      hideLoadingMessage();
+      console.error(e);
+    })
   }
+  
 
   function loadDetails(item) {
+      showLoadingMessage();
       let url = item.detailsUrl;
       return fetch(url).then(function (response) {
         return response.json();
       }).then(function (details) {
-        // Now we add the details to the item
+        hideLoadingMessage();
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
         item.types = details.types;
-        hideLoadingMessage();
       }).catch(function (e) {
+        hideLoadingMessage();
         console.error(e);
       });
   }
@@ -92,8 +90,7 @@ const pokemonRepository = ( () => {
     getAll,
     addListItem,
     loadList,
-    loadDetails,
-    showLoadingMessage
+    loadDetails
   };
 })();
 
