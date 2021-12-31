@@ -312,7 +312,7 @@ const pokemonRepository = ( () => {
       
        
       form.addEventListener('submit', (e) => {
-        e.preventDefault(); // Do not submit to the server
+        e.preventDefault(); 
         if (validateForm()) {
           alert('Success!');
         }
