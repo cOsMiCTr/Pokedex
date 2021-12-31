@@ -19,7 +19,7 @@
 ## used Extensions
 
 - HTML CSS Support
-- KTML Snippets
+- HTML Snippets
 - Live Sass Compiler
 - IntelliSense for CSS
 - Live Server (My favorite)
@@ -28,6 +28,10 @@
 - ESLint
 
 
-## Used Resources:
+## Used Resources
 
 ![PokeAPI](https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png)
+
+## License
+
+This code is not licensed. You can use it freely anytime you like.

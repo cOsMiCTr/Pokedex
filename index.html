@@ -4,21 +4,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pokedex - cOsMiCTr</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">  
     <link href="./css/style.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
     <header>
       <h1>Pokedex</h1>
-      <div class='loading-message'></div>
+
+      <div id='modal-container'></div>
+
+      <div id="navigation-list">
+          <a href="#" class="navigation-list__Home">Home</a>
+          <a href="#" class="navigation-list__Contact">Contact</a>
+      </div>
+
+
+
     </header>
-    <ul class='pokemon-list'></ul>
-    <strong>
-      <script src="./js/promise-polyfill.js"></script>
-      <script src="./js/fetch-polyfill.js"></script>
-      <script src="./js/script.js"></script>
-    </strong>
+    <div class='loading-message'></div>
+      <div class="pokemon-list">
+
+      </div>
+      <strong>
+        <script src="./js/promise-polyfill.js"></script>
+        <script src="./js/fetch-polyfill.js"></script>
+        <script src="./js/script.js"></script>
+      </strong>
+
     <footer></footer>
   </body>
 </html>
