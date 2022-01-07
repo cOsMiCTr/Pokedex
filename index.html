@@ -1,34 +1,73 @@
 <!DOCTYPE html>
 <html lang=en>
   <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pokedex - cOsMiCTr</title>
+    <link rel="icon" href="./img/pokedex-favicon.png" type="image/png" sizes="32x32">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="./css/style.css" rel="stylesheet" type="text/css" />
+    
   </head>
 
   <body>
-    <header>
-      <h1>Pokedex</h1>
+    
 
-      <div id='modal-container'></div>
+    <header class="header-container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" >
+        <div class="logo-container">
+          <div class="image-container">
+            <img class="pokeball__open" src="./img/pokeball-open.png" alt="Pokeball open">
+            <img class="pokeball__closed" src="./img/pokeball-closed.png" alt="Pokeball closed">
+        </div>
+          <h1>Pokedex</h1>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link navigation-list__Contact" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="header-row">
 
-      <div id="navigation-list">
-          <a href="#" class="navigation-list__Home">Home</a>
-          <a href="#" class="navigation-list__Contact">Contact</a>
+      <div id='modal-container'>      
+        <div class="modal fade">
+
+        </div>
       </div>
-
-
+    </div>
 
     </header>
+    <main class="container-fluid">
+    <div class="sr-only">In this section, you will find the list of Pokemons and when you click on them, you can see their details.</div>
     <div class='loading-message'></div>
-      <div class="pokemon-list">
+      <div class="row">
+
 
       </div>
+    </main>
       <strong>
+        <!-- <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script> -->
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
         <script src="./js/promise-polyfill.js"></script>
         <script src="./js/fetch-polyfill.js"></script>
         <script src="./js/script.js"></script>
+
       </strong>
 
     <footer></footer>
