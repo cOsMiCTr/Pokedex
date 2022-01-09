@@ -40,7 +40,7 @@ const pokemonRepository = (() => {
         pokemonName.innerText = pokemon.name;
     
     container.innerText.toUpperCase();
-
+    container.classList.add("list-group");
     // Sizing of the Grid
     container.classList.add("col-6");
     container.classList.add("col-xs-5");
