@@ -1,11 +1,11 @@
 // IIFE
 
 const pokemonRepository = (() => {
-  let modalContainer = document.querySelector("#modal-container");
+  let modalContainer = document.querySelector(".modal");
 
   // Pokemon names
-  let pokemonList = [],
-    waitingMessage = "Loading... Please wait!";
+  let pokemonList = [];
+
 
   // Add Pokemon Function manually
   let add = (pokemon) => {
@@ -17,24 +17,27 @@ const pokemonRepository = (() => {
   // Print all Pokemon
   let getAll = () => pokemonList;
 
-  let loadingMessage = document.querySelector(".loading-message");
-
-  function showLoadingMessage() {
-    loadingMessage.classList.add("show");
-  }
-
-  function hideLoadingMessage() {
-    loadingMessage.classList.remove("show");
-  }
-
   let addListItem = (pokemon) => {
     // Adding pokemons
-    const pokemonListContainer = document.querySelector(".row");
-    let container = document.createElement("div"),
-        pokemonImg = document.createElement('img');
+    const pokemonListContainer = document.querySelector('.row');
+    let container = document.createElement('div'),
+        // pokemonCardContainer = document.createElement('div'),
+        pokemonCardImg = document.createElement('img'),
+        pokemonImg = document.createElement('img'),
+        pokemonName = document.createElement('p');
+
+        // pokemonCardContainer.classList.add('pokemon-card-container');
+        pokemonCardImg.classList.add('pokemon-card');
+        pokemonCardImg.setAttribute("src", "./img/pokemon-card.png")
+        pokemonCardImg.setAttribute("alt", "Pokemon Card");
+
         pokemonImg.setAttribute("alt", "Pokemon image of " + pokemon.name);
         pokemonImg.setAttribute("role", "image");
-    container.innerText = pokemon.name;
+        pokemonImg.classList.add("pokemon-image");
+
+        pokemonName.classList.add("pokemon-name");
+
+        pokemonName.innerText = pokemon.name;
     
     container.innerText.toUpperCase();
 
@@ -44,10 +47,14 @@ const pokemonRepository = (() => {
     container.classList.add("col-sm-4");
     container.classList.add("col-md-3");
     container.classList.add("col-lg-2");
-    container.classList.add("col-xl-1");
-
+    container.classList.add("pokemon-container");
+    container.setAttribute("data-toggle", "modal");
     // Append the items
+    
+    container.appendChild(pokemonCardImg);
+    container.appendChild(pokemonName);
     container.appendChild(pokemonImg);
+    // container.appendChild(pokemonCardContainer);
     pokemonListContainer.appendChild(container);
 
     // Return button test when clicked
@@ -65,6 +72,7 @@ const pokemonRepository = (() => {
 
   };
 
+
   let showDetails = (item) =>
     pokemonRepository
       .loadDetails(item)
@@ -73,7 +81,6 @@ const pokemonRepository = (() => {
       );
 
   function loadList() {
-    showLoadingMessage();
     return fetch('https://pokeapi.co/api/v2/pokemon/?limit=200').then(function (response) {
       return response.json();
     }).then(function (json) {
@@ -91,14 +98,12 @@ const pokemonRepository = (() => {
   }
 
   function loadDetails(item) {
-    showLoadingMessage();
     let url = item.detailsUrl;
     return fetch(url)
       .then(function (response) {
         return response.json();
       })
       .then(function (details) {
-        hideLoadingMessage();
         item.imageUrl = details.sprites.other["official-artwork"].front_default
         item.height = details.height;
         let arrayNamesTypes = details.types.map((o) => o.type.name);
@@ -106,159 +111,60 @@ const pokemonRepository = (() => {
         item.weight = details.weight;
       })
       .catch(function (e) {
-        hideLoadingMessage();
         console.error(e);
       });
   }
 
   let showModal = (title, image, height, weight, type) => {
-    modalContainer.innerHTML = "";
+    let modalBody = $('.modal-body');
+    let modalTitle = $('.modal-title');
 
-    // Creating modal elements
-    let modal = document.createElement("div");
-    modal.classList.add("modal");
+    modalTitle.empty();
+    modalBody.empty();
 
-    let closeButtonElement = document.createElement("button");
-    closeButtonElement.classList.add("btn");
-    closeButtonElement.classList.add("btn-primary");
-    closeButtonElement.innerText = "X";
-    closeButtonElement.addEventListener("click", hideModal);
+    let nameElement = $('<h1 class="text-capitalize">' + title + '</h1>');
+    let imageElement = $('<img class="modal-img" style="width:30%">');
+    imageElement.attr("src", image);
 
-    let titleElement = document.createElement("h1");
-    titleElement.innerText = title;
+    let heightElement = $('<p>' + 'Height : ' + Math.round(height * 0.1).toFixed(2) + ' m</p>');
+    let weightElement = $('<p>' + 'Weight : ' + Math.round(weight * 0.1).toFixed(3) + ' kgs</p>');
+    let typeElement = $('<p>' + 'Type(s) : ' + type + '</p>');
 
-    let heightElement = document.createElement("p"),
-      weightElement = document.createElement("p"),
-      imageContainer = document.createElement("div"),
-      typeContainer = document.createElement("p"),
-      infoContainer = document.createElement("div"),
-      imageElement = document.createElement("img");
-    imageElement.setAttribute("src", image);
-    heightElement.innerText =
-      "Height: " + (Math.round(height * 0.1).toFixed(2) + " m");
-    weightElement.innerText =
-      "Weight: " + (Math.round(weight * 0.1).toFixed(3) + " kgs");
+    modalTitle.append(nameElement);
+    modalBody.append(imageElement);
+    modalBody.append(heightElement);
+    modalBody.append(weightElement);
+    modalBody.append(typeElement);
 
-    // Assigning the elements
-    imageContainer.appendChild(imageElement);
-    imageContainer.classList.add("pokemon-image");
-
-    typeContainer.innerText = "Type: " + type;
-
-    infoContainer.appendChild(imageContainer);
-    infoContainer.appendChild(heightElement);
-    infoContainer.appendChild(weightElement);
-    infoContainer.appendChild(typeContainer);
-    infoContainer.classList.add("pokemon-info-container");
-
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
-    modal.appendChild(imageContainer);
-    modal.appendChild(infoContainer);
-    modalContainer.appendChild(modal);
-
-    modalContainer.classList.add("is-visible");
-  };
+    $('#PokedexModal').modal();
+  }
 
   let showContactModal = () => {
-    modalContainer.innerHTML = "";
+    let modalBody = $('.modal-body');
+    let modalTitle = $('.modal-title');
 
-    // Creating modal elements
-    let modal = document.createElement("div");
-    modal.classList.add("modal");
+    modalTitle.empty();
+    modalBody.empty();
 
-    let closeButtonElement = document.createElement("button");
-    closeButtonElement.classList.add("btn");
-    closeButtonElement.innerText = "X";
-    closeButtonElement.addEventListener("click", hideModal);
+    let nameElement = $('<h1 class="text-capitalize">Contact</h1>');
 
-    let titleElement = document.createElement("h1");
-    titleElement.innerText = "Contact";
+    let emailElement = $('<label for="contact-email">Enter your Email address</label><input type="email" class="form-control" id="contact-email" aria-describedby="emailHelp" placeholder="Enter email">');
 
-    let contactForm = document.createElement("form");
-    contactForm.classList.add("contact-form");
+    let messageElement = $('<label for="contact-textarea">Your message</label><textarea class="form-control" id="contact-textarea" rows="3"></textarea>')
 
-    // eMail Element
-    let emailContainer = document.createElement("div"),
-      emailLabelElement = document.createElement("label"),
-      emailInputElement = document.createElement("input");
-    emailContainer.classList.add("col");
-    emailLabelElement.innerText = "Enter your email (required)";
-    emailLabelElement.classList.add("standard-label");
-    emailLabelElement.setAttribute("for", "contact-email");
-    emailInputElement.setAttribute("type", "email");
-    emailInputElement.setAttribute("id", "contact-email");
-    emailInputElement.setAttribute("name", "user_Email");
-    emailInputElement.setAttribute("placeholder", ".@...");
+    let inputElement = $('<input class="btn btn-primary" type="submit" value="Submit">');
 
-    // Telephone Element
-    let telephoneContainer = document.createElement("div"),
-      telephoneLabelElement = document.createElement("label"),
-      telephoneInputElement = document.createElement("input");
-    telephoneContainer.classList.add("col");
-    telephoneLabelElement.innerText = "Telephone (optional)";
-    telephoneLabelElement.classList.add("standard-label");
-    telephoneLabelElement.setAttribute("for", "contact-telephone");
-    telephoneInputElement.setAttribute("type", "tel");
-    telephoneInputElement.setAttribute("id", "contact-telephone");
-    telephoneInputElement.setAttribute("name", "user_Telephone");
-    telephoneInputElement.setAttribute("pattern", "d{3}[-]d{3}[-]d{4}");
 
-    // Text Element
-    let textContainer = document.createElement("div"),
-      textLabelElement = document.createElement("label"),
-      textInputElement = document.createElement("textarea");
-    textContainer.classList.add("col");
-    textLabelElement.innerText = "Your message";
-    textLabelElement.classList.add("standard-label");
-    textLabelElement.setAttribute("for", "contact-message");
-    textInputElement.setAttribute("id", "contact-message");
-    textInputElement.setAttribute("name", "user_Telephone");
 
-    emailContainer.appendChild(emailLabelElement);
-    emailContainer.appendChild(emailInputElement);
-    telephoneContainer.appendChild(telephoneLabelElement);
-    telephoneContainer.appendChild(telephoneInputElement);
-    textContainer.appendChild(textLabelElement);
-    textContainer.appendChild(textInputElement);
-    contactForm.appendChild(emailContainer);
-    contactForm.appendChild(telephoneContainer);
-    contactForm.appendChild(textContainer);
+    modalBody.empty();
 
-    // Assigning the elements
+    modalTitle.append(nameElement);
+    modalBody.append(emailElement);
+    modalBody.append(messageElement);
+    modalBody.append(inputElement);
 
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
-    modal.appendChild(contactForm);
-    modalContainer.appendChild(modal);
-
-    modalContainer.classList.add("is-visible");
+    $('#ContactModal').modal();
   };
-
-  function showContactDialog() {
-    showContactModal();
-
-    let modal = modalContainer.querySelector(".modal"),
-        buttonContainer = modalContainer.querySelector(".contact-form");
-
-    submitButton = document.createElement("button");
-    submitButton.classList.add("modal-submit");
-    submitButton.innerText = "Submit";
-    buttonContainer.appendChild(submitButton);
-    modal.appendChild(buttonContainer);
-
-    submitButton.focus();
-
-    return new Promise((resolve, reject) => {
-      submitButton.addEventListener("click", () => {
-        dialogPromiseReject = null;
-        hideModal();
-        resolve();
-      });
-
-      dialogPromiseReject = reject;
-    });
-  }
 
   let hideModal = () => {
     modalContainer.classList.remove("is-visible");
@@ -266,7 +172,7 @@ const pokemonRepository = (() => {
 
   // Event listeners for modal
   window.addEventListener("keydown", (e) => {
-    let modalContainer = document.querySelector("#modal-container");
+    let modalContainer = document.querySelector(".modal");
     if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
       hideModal();
     }
@@ -280,12 +186,12 @@ const pokemonRepository = (() => {
   });
 
   document
-    .querySelector(".row")
+    .querySelector("#PokedexModal")
     .addEventListener("click", () => showModal);
 
   document
-    .querySelector(".navigation-list__Contact")
-    .addEventListener("click", () => showContactDialog());
+    .querySelector(".Contact")
+    .addEventListener("click", () => showContactModal());
 
   return {
     getAll,
@@ -295,8 +201,7 @@ const pokemonRepository = (() => {
     showDetails,
     showModal,
     hideModal,
-    showContactModal,
-    showContactDialog,
+    showContactModal
   };
 })();
 
@@ -304,58 +209,3 @@ const pokemonRepository = (() => {
  pokemonRepository.loadList().then( () =>
   pokemonRepository.getAll().forEach( pokemon =>
     pokemonRepository.addListItem(pokemon)));
-
-(function() {
-  let form = document.querySelector('#contact-form');
-  let emailInput = document.querySelector('#contact-email');
-
-  function showErrorMessage(input, message) {
-    let container = input.parentElement;
-
-    // Remove an existing error
-    let error = container.querySelector('.error-message');
-    if (error) {
-      container.removeChild(error);
-    }
-
-    // Now add the error, if the message is not empty
-    if (message) {
-      let error = document.createElement('div');
-      error.classList.add('error-message');
-      error.innerText = message;
-      container.appendChild(error);
-    }
-  }
-
-  function validateEmail() {
-    let value = emailInput.value;
-
-    if (!value) {
-      showErrorMessage(emailInput, 'Email is a required field.');
-      return false;
-    }
-
-    if (value.indexOf('@') === -1) {
-      showErrorMessage(emailInput, 'You must enter a valid email address.');
-      return false;
-    }
-
-    showErrorMessage(emailInput, null);
-    return true;
-
-  }
-
-  function validateForm() {
-      let isValidEmail = validateEmail();
-      return isValidEmail;
-  }
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      alert('Success!');
-    }
-  });
-
-  emailInput.addEventListener('input', validateEmail);
-})();
