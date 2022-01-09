@@ -20,7 +20,7 @@ const pokemonRepository = (() => {
   let addListItem = (pokemon) => {
     // Adding pokemons
     const pokemonListContainer = document.querySelector('.row');
-    let container = document.createElement('div'),
+    let container = document.createElement('li'),
         // pokemonCardContainer = document.createElement('div'),
         pokemonCardImg = document.createElement('img'),
         pokemonImg = document.createElement('img'),

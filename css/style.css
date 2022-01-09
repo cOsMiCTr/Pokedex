@@ -3,7 +3,7 @@
   font-family: Futura;
 }
 
-main .row div,
+main .row li,
 main .row aside, 
 main .row article {
   display: grid;
