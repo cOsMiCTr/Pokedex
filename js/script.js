@@ -171,7 +171,7 @@ const pokemonRepository = (() => {
   };
 
 
-  $(document).ready(function(){
+  $(document).ready(() => {
     $(".search-pokemon").on("input", function() {
       let value = $(this).val().toLowerCase();
       $(".pokemon-container").filter(function() {
