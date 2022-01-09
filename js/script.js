@@ -170,6 +170,16 @@ const pokemonRepository = (() => {
     modalContainer.classList.remove("is-visible");
   };
 
+
+  $(document).ready(function(){
+    $(".search-pokemon").on("input", function() {
+      let value = $(this).val().toLowerCase();
+      $(".pokemon-container").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
   // Event listeners for modal
   window.addEventListener("keydown", (e) => {
     let modalContainer = document.querySelector(".modal");
@@ -184,6 +194,7 @@ const pokemonRepository = (() => {
       hideModal();
     }
   });
+
 
   document
     .querySelector("#PokedexModal")
