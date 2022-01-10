@@ -23,16 +23,17 @@ const pokemonRepository = (() => {
     $("ul.row").html('<li class="list-group col-6 col-xs-5 col-sm-4 col-md-3 col-lg-2 pokemon-container"' +
     'data-toggle="modal"><p class="pokemon-name">' + pokemon.name + '</p>' + 
     '<img class="pokemon-image" src="' + pokemon.image + '"></li>');
-
     // Return button test when clicked
-    container.addEventListener("click", () => showDetails(pokemon));
 
+    $("li.pokemon-container").on("click", function(){
+      showDetails(pokemon);
+    });
     let url = pokemon.detailsUrl;
     return fetch(url).then( (response) => {
       return response.json();
     }).then( (details) => {
       pokemon.image = details.sprites.front_default;
-      pokemonImg.setAttribute ('src', pokemon.image);
+
     }).catch( (e) => {
       console.error(e);
     });
