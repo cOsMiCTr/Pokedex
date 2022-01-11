@@ -6,7 +6,7 @@
 
 ## Sneek Preview
 
-![Sneak Preview](https://cosmictr.github.io/Pokedex/img/sneak_preview.png)
+![Sneak Preview](https://github.com/cOsMiCTr/Pokedex/blob/Finished/img/Sneek_Preview.png)
 
 
 ## used langueges and APIs
