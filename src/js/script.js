@@ -2,11 +2,10 @@
 
 const pokemonRepository = (() => {
   let modalContainer = document.querySelector(".modal");
-  let modalBody = $('.modal-body');
-  let modalTitle = $('.modal-title');
+  let modalBody = $(".modal-body");
+  let modalTitle = $(".modal-title");
   // Pokemon names
   let pokemonList = [];
-
 
   // Add Pokemon Function manually
   let add = (pokemon) => {
@@ -20,24 +19,50 @@ const pokemonRepository = (() => {
 
   let addListItem = (pokemon) => {
     // Adding pokemons
-    $("ul.row").html('<li class="list-group col-6 col-xs-5 col-sm-4 col-md-3 col-lg-2 pokemon-container"' +
-    'data-toggle="modal"><p class="pokemon-name">' + pokemon.name + '</p>' + 
-    '<img class="pokemon-image" src="' + pokemon.image + '"></li>');
+    const pokemonListContainer = document.querySelector(".row");
+    let container = document.createElement("li"),
+      pokemonImg = document.createElement("img"),
+      pokemonName = document.createElement("p");
+
+    pokemonImg.setAttribute("alt", "Pokemon image of " + pokemon.name);
+    pokemonImg.setAttribute("role", "image");
+    pokemonImg.classList.add("pokemon-image");
+
+    pokemonName.classList.add("pokemon-name");
+
+    pokemonName.innerText = pokemon.name;
+
+    container.innerText.toUpperCase();
+    container.classList.add("list-group");
+    // Sizing of the Grid
+    container.classList.add("col-6");
+    container.classList.add("col-xs-5");
+    container.classList.add("col-sm-4");
+    container.classList.add("col-md-3");
+    container.classList.add("col-lg-2");
+    container.classList.add("pokemon-container");
+    container.setAttribute("data-toggle", "modal");
+    // Append the items
+
+    container.appendChild(pokemonName);
+    container.appendChild(pokemonImg);
+    pokemonListContainer.appendChild(container);
+
     // Return button test when clicked
+    container.addEventListener("click", () => showDetails(pokemon));
 
-    $("li.pokemon-container").on("click", function(){
-      showDetails(pokemon);
-    });
     let url = pokemon.detailsUrl;
-    return fetch(url).then( (response) => {
-      return response.json();
-    }).then( (details) => {
-      pokemon.image = details.sprites.front_default;
-
-    }).catch( (e) => {
-      console.error(e);
-    });
-
+    return fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((details) => {
+        pokemon.image = details.sprites.front_default;
+        pokemonImg.setAttribute("src", pokemon.image);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   let showDetails = (item) =>
@@ -47,21 +72,24 @@ const pokemonRepository = (() => {
         showModal(item.name, item.imageUrl, item.height, item.weight, item.type)
       );
 
-   let loadList = ()  => {
-    return fetch('https://pokeapi.co/api/v2/pokemon/?limit=200').then(function (response) {
-      return response.json();
-    }).then( (json) => {
-      json.results.forEach( (item) => {
-        let pokemon = {
-          name: item.name,
-          detailsUrl: item.url
-        };
-        add(pokemon);
+  let loadList = () => {
+    return fetch("https://pokeapi.co/api/v2/pokemon/?limit=200")
+      .then(function (response) {
+        return response.json();
+      })
+      .then((json) => {
+        json.results.forEach((item) => {
+          let pokemon = {
+            name: item.name,
+            detailsUrl: item.url,
+          };
+          add(pokemon);
+        });
+      })
+      .catch((e) => {
+        console.error(e);
       });
-    }).catch( (e) => {
-      console.error(e);
-    })
-  }
+  };
 
   function loadDetails(item) {
     let url = item.detailsUrl;
@@ -70,7 +98,7 @@ const pokemonRepository = (() => {
         return response.json();
       })
       .then(function (details) {
-        item.imageUrl = details.sprites.other["official-artwork"].front_default
+        item.imageUrl = details.sprites.other["official-artwork"].front_default;
         item.height = details.height;
         let arrayNamesTypes = details.types.map((o) => o.type.name);
         item.type = arrayNamesTypes.join(", ");
@@ -85,47 +113,58 @@ const pokemonRepository = (() => {
     modalTitle.empty();
     modalBody.empty();
 
-    let nameElement = $('<h1 class="text-capitalize">' + title + '</h1>');
-    let imageElement = $('<img class="modal-img" style="width:30%">');
+    let nameElement = $('<h1 class="text-capitalize">' + title + "</h1>"),
+      imageElement = $('<img class="modal-img" style="width:30%">'),
+      heightElement = $(
+        "<p>" + "Height : " + Math.round(height * 0.1).toFixed(2) + " m</p>"
+      ),
+      weightElement = $(
+        "<p>" + "Weight : " + Math.round(weight * 0.1).toFixed(3) + " kgs</p>"
+      ),
+      typeElement = $("<p>" + "Type(s) : " + type + "</p>");
     imageElement.attr("src", image);
-
-    let heightElement = $('<p>' + 'Height : ' + Math.round(height * 0.1).toFixed(2) + ' m</p>');
-    let weightElement = $('<p>' + 'Weight : ' + Math.round(weight * 0.1).toFixed(3) + ' kgs</p>');
-    let typeElement = $('<p>' + 'Type(s) : ' + type + '</p>');
-
     modalTitle.append(nameElement);
-    modalBody.append(imageElement).append(heightElement).append(weightElement).append(typeElement);
+    modalBody
+      .append(imageElement)
+      .append(heightElement)
+      .append(weightElement)
+      .append(typeElement);
 
-    $('#PokedexModal').modal();
-  }
+    $("#PokedexModal").modal();
+  };
 
   let showContactModal = () => {
     modalTitle.empty();
     modalBody.empty();
 
     let nameElement = $('<h1 class="text-capitalize">Contact</h1>'),
-      emailElement = $('<label for="contact-email">Enter your Email address</label><input type="email" class="form-control" id="contact-email" aria-describedby="emailHelp" placeholder="Enter email">'),
-      messageElement = $('<label for="contact-textarea">Your message</label><textarea class="form-control" id="contact-textarea" rows="3"></textarea>'),
-      inputElement = $('<input class="btn btn-primary" type="submit" value="Submit">');
+      emailElement = $(
+        '<label for="contact-email">Enter your Email address</label><input type="email" class="form-control" id="contact-email" aria-describedby="emailHelp" placeholder="Enter email">'
+      ),
+      messageElement = $(
+        '<label for="contact-textarea">Your message</label><textarea class="form-control" id="contact-textarea" rows="3"></textarea>'
+      ),
+      inputElement = $(
+        '<input class="btn btn-primary" type="submit" value="Submit">'
+      );
 
     modalBody.empty();
 
     modalTitle.append(nameElement);
     modalBody.append(emailElement).append(messageElement).append(inputElement);
 
-    $('#ContactModal').modal();
+    $("#ContactModal").modal();
   };
 
   let hideModal = () => {
     modalContainer.classList.remove("is-visible");
   };
 
-
   $(document).ready(() => {
-    $(".search-pokemon").on("input", function() {
+    $(".search-pokemon").on("input", function () {
       let value = $(this).val().toLowerCase();
-      $(".pokemon-container").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      $(".pokemon-container").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
       });
     });
   });
@@ -157,11 +196,14 @@ const pokemonRepository = (() => {
     showDetails,
     showModal,
     hideModal,
-    showContactModal
+    showContactModal,
   };
 })();
 
-
- pokemonRepository.loadList().then( () => 
-  pokemonRepository.getAll().forEach( pokemon =>
-    pokemonRepository.addListItem(pokemon)));
+pokemonRepository
+  .loadList()
+  .then(() =>
+    pokemonRepository
+      .getAll()
+      .forEach((pokemon) => pokemonRepository.addListItem(pokemon))
+  );

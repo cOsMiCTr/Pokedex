@@ -1,10 +1,9 @@
-
 * {
   font-family: Futura;
 }
 
 main .row li,
-main .row aside, 
+main .row aside,
 main .row article {
   display: grid;
   text-align: center;
@@ -12,28 +11,28 @@ main .row article {
   border-radius: 10px;
   margin: 0.3rem;
   position: relative;
-  -webkit-transition: all .35s;
-  transition: all .35s;
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
   padding: 10px;
   justify-content: center;
 }
 
-.pokedex-logo{
+.pokedex-logo {
   width: 40%;
   height: 40%;
 }
 
-.row div:hover{
+.row div:hover {
   position: relative;
-  -webkit-transition: all .35s;
-  transition: all .35s;
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
   padding: 10px;
 }
 
-.row div:after{
+.row div:after {
   position: relative;
-  -webkit-transition: all .35s;
-  transition: all .35s;
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
   padding: 10px;
 }
 
@@ -42,16 +41,16 @@ main .row article {
   z-index: 2;
 }
 
-.row{
+.row {
   margin-top: 1rem;
   justify-content: center;
 }
 
-.modal div{
+.modal div {
   text-align: center;
   justify-content: center;
 }
 
-.btn{
+.btn {
   margin-top: 10px;
 }

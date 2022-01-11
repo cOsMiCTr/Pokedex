@@ -1,8 +1,8 @@
-*{
+* {
   font-family: Poppins;
 }
 
-body{
+body {
   display: block;
   text-align: center;
 }
@@ -11,7 +11,7 @@ ul {
   list-style-type: none;
 }
 
-button{
+button {
   margin: 1rem auto;
   width: 200px;
   font-size: 18px;
@@ -21,12 +21,12 @@ button{
   letter-spacing: 2px;
   text-align: center;
   position: relative;
-  transition: all .35s;
-  span{
+  transition: all 0.35s;
+  span {
     position: relative;
     z-index: 2;
   }
-  &::after{
+  &::after {
     position: absolute;
     content: "";
     top: 0;
@@ -34,9 +34,9 @@ button{
     width: 0;
     height: 100%;
     background: #ff003b;
-    transition: all .50s;
+    transition: all 0.5s;
   }
-  &:hover{
+  &:hover {
     color: aliceblue;
     background: red;
   }
