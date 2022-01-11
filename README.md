@@ -2,13 +2,21 @@
 
 
 # Pokedex APP by cOsMiCTR
-> In this project, I have tried to create a Pokedex where you can reach the related information of the Pokemons which are connected via an API
+> In this project, I have tried to create a Pokedex where you can reach the related information of the Pokemons which are connected via an API. I have managed so far to put a search option so that you can search your loved Pokemon and see its info by clicking over it.
 
-## used langueges
+## Sneek Preview
+
+![Sneak Preview](https://cosmictr.github.io/Pokedex/img/sneak_preview.png)
+
+
+## used langueges and APIs
 
 - HTML
 - CSS
 - JavaScript
+- JQuery
+- JSON
+- Ajax
 (so far)
 
 ## used tools
